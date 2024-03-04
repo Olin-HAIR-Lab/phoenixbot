@@ -19,7 +19,8 @@
         <geometry>
           <mesh>
             <uri>model://lettuce_crop_01/meshes/LettuceBibb.dae</uri>
-            <scale>0.01 0.01 0.01</scale>
+            <!-- <scale>0.01 0.01 0.01</scale> -->
+            <scale>0.006 0.006 0.006</scale>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -63,7 +64,8 @@
         <geometry>
           <mesh>
             <uri>model://lettuce_crop_01/meshes/LettuceBibb.dae</uri>
-            <scale>0.01 0.01 0.01</scale>
+            <!-- <scale>0.01 0.01 0.01</scale> -->
+            <scale>0.006 0.006 0.006</scale>
           </mesh>
         </geometry>
         <material>

@@ -1,0 +1,162 @@
+<?xml version="1.0" ?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- If true, physics engine will ignore -->
+     <!-- <static>false</static>     -->
+
+       <link name="base_link" />
+
+       <joint name="base_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis"/>
+        <origin xyz="0 0 0.4" rpy="0 0 0"/>
+       </joint>
+
+
+       <!-- Add the base of the robot -->
+       <link name='chassis'>
+       
+         <!--Position of the center will be: -->
+         <pose>0 0 .04 0 0 0</pose>
+
+           <!-- Specify the shape for collisions -->
+           <collision name='collision'>
+             <geometry>
+                <!-- <mesh filename="package://phoenixbot_description/meshes/olin-amiga-assy-v2.STL"/> -->
+                <mesh filename="package://phoenixbot_description/meshes/olin-amiga-assy.dae"/>
+            </geometry>
+           </collision>
+
+           <!-- Specify the shape for visualization -->
+           <visual name='visual'>
+             <!-- <pose> 0 0 0.04 0 0 0 </pose> -->
+             <geometry>
+                <!-- <mesh filename="package://phoenixbot_description/meshes/olin-amiga-assy-v2.STL"/> -->
+                <mesh filename="package://phoenixbot_description/meshes/olin-amiga-assy.dae"/>
+            </geometry>
+           </visual>    
+
+           <inertial>
+            <origin xyz="0 0 0.0" rpy="0 0 0"/>
+            <mass value="10" />
+            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
+          </inertial>  
+
+       </link>  
+
+       <!-- Add the front-left wheel -->     
+       <link name="front_left_wheel">
+         <pose>0.45 0.68 -0.195 0 0 0</pose>
+         <collision name="collision">
+           <geometry>
+                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
+            </geometry>
+         </collision>
+         <visual name="visual">
+           <geometry>
+                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
+            </geometry>
+         </visual>
+         <inertial>
+            <origin xyz="0 0 0.0" rpy="0 0 0"/>
+            <mass value="2" />
+            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
+          </inertial>  
+       </link>  
+
+
+       <!-- Add the front-right wheel -->     
+       <link name="front_right_wheel">
+         <pose>0.45 -0.68 -0.195 0 0 0</pose>
+         <collision name="collision">
+           <geometry>
+                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
+            </geometry>
+         </collision>
+         <visual name="visual">
+           <geometry>
+                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
+            </geometry>
+         </visual>
+         <inertial>
+            <origin xyz="0 0 0.0" rpy="0 0 0"/>
+            <mass value="2" />
+            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
+          </inertial> 
+       </link>  
+
+
+       <!-- Add the rear-left wheel -->     
+       <link name="rear_left_wheel">
+         <pose>-0.45 0.68 -0.195 0 0 0</pose>
+         <collision name="collision">
+           <geometry>
+                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
+            </geometry>
+         </collision>
+         <visual name="visual">
+           <geometry>
+                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
+            </geometry>
+         </visual>
+         <inertial>
+            <origin xyz="0 0 0.0" rpy="0 0 0"/>
+            <mass value="2" />
+            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
+          </inertial> 
+       </link>  
+
+
+       <!-- Add the rear-right wheel -->     
+       <link name="rear_right_wheel">
+         <pose>-0.45 -0.68 -0.195 0 0 0</pose>
+         <collision name="collision">
+           <geometry>
+                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
+            </geometry>
+         </collision>
+         <visual name="visual">
+           <geometry>
+                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
+            </geometry>
+         </visual>
+         <inertial>
+            <origin xyz="0 0 0.0" rpy="0 0 0"/>
+            <mass value="2" />
+            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
+          </inertial> 
+       </link>  
+
+
+
+        <joint name="front_left_wheel_joint" type="continuous">
+            <parent link="chassis"/>
+            <child link="front_left_wheel"/>
+            <origin xyz="0.45 0.68 -0.195" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
+        </joint>   
+
+        <joint name="front_right_wheel_joint" type="continuous">
+            <parent link="chassis"/>
+            <child link="front_right_wheel"/>
+            <origin xyz="0.45 -0.68 -0.195" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
+        </joint>       
+
+
+        <joint name="rear_left_wheel_joint" type="continuous">
+            <parent link="chassis"/>
+            <child link="rear_left_wheel"/>
+            <origin xyz="-0.45 0.68 -0.195" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
+        </joint>   
+
+        <joint name="rear_right_wheel_joint" type="continuous">
+            <parent link="chassis"/>
+            <child link="rear_right_wheel"/>
+            <origin xyz="-0.45 -0.68 -0.195" rpy="0 0 0"/>
+            <axis xyz="0 1 0"/>
+        </joint>  
+
+
+</robot>

@@ -1,232 +1,42 @@
 <?xml version="1.0" ?>
-
 <robot name="phoenixbot" xmlns:xacro="http://ros.org/wiki/xacro">
-    <!-- If true, physics engine will ignore -->
-     <!-- <static>false</static>     -->
 
-       <link name="base_link" />
-
-       <joint name="base_joint" type="fixed">
-        <parent link="base_link"/>
-        <child link="chassis"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-       </joint>
+    <!-- include the core urdf file  -->
+    <xacro:include filename="phoenixbot_core.xacro"/>
 
 
-       <!-- Add the base of the robot -->
-       <link name='chassis'>
-       
-         <!--Position of the center will be: -->
-         <pose>0 0 .04 0 0 0</pose>
+    <!-- include gazebo definition file -->
+    <xacro:include filename="gazebo_control.xacro"/> 
 
-           <!-- Specify the shape for collisions -->
-           <collision name='collision'>
-             <!-- <geometry>
-               <mesh>
-                 <uri>model://phoenixbot/meshes/olin-amiga-assy-v2.STL</uri>
-                 <scale>1 1 1 </scale>
-               </mesh>
-             </geometry> -->
-             <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/olin-amiga-assy-v2.STL"/>
-            </geometry>
-           </collision>
+    <!-- Includes -->
+    <xacro:include filename="$(find phoenixbot_description)/urdf/ydlidar.xacro" />
+    <xacro:include filename="$(find phoenixbot_description)/urdf/zed2_camera.xacro" />
+    <!-- <xacro:include filename="$(find phoenixbot_description)/urdf/gps.xacro" /> -->
+    <xacro:include filename="robot_cameras.xacro"/>
 
-           <!-- Specify the shape for visualization -->
-           <visual name='visual'>
-             <!-- <pose> 0 0 0.04 0 0 0 </pose> -->
-             <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/olin-amiga-assy-v2.STL"/>
-            </geometry>
-           </visual>    
+    <!-- ydlidar -->
+    <xacro:ydlidar_sensor parent="chassis">
+        <origin xyz="0.0 0 0.22" rpy="0 0 0" />
+    </xacro:ydlidar_sensor>
 
-           <inertial>
-            <origin xyz="0 0 0.0" rpy="0 0 0"/>
-            <mass value="10" />
-            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
-          </inertial>  
+    <!-- gps -->
+    <!-- <xacro:gps_sensor parent="base_link">
+        <origin xyz="0 0 0.2" rpy="0 0 0"/>
+    </xacro:gps_sensor> -->
 
-       </link>  
+    <!-- front_camera -->
+    <xacro:front_camera parent="chassis">
+        <origin xyz="0.49 0.0 0.2" rpy="0 0 0"/>
+    </xacro:front_camera>
 
-       <!-- Add the front-left wheel -->     
-       <link name="front_left_wheel">
-         <pose>0.45 0.68 -0.195 0 0 0</pose>
-         <collision name="collision">
-           <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy-v2.STL"/>
-            </geometry>
-         </collision>
-         <visual name="visual">
-           <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy-v2.STL"/>
-            </geometry>
-         </visual>
-         <inertial>
-            <origin xyz="0 0 0.0" rpy="0 0 0"/>
-            <mass value="2" />
-            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
-          </inertial>  
-       </link>  
+    <!-- rear_camera -->
+    <xacro:rear_camera parent="chassis">
+        <origin xyz="-0.49 0.0 0.2" rpy="0 0 3.14"/>
+    </xacro:rear_camera>
 
-
-       <!-- Add the front-right wheel -->     
-       <link name="front_right_wheel">
-         <pose>0.45 -0.68 -0.195 0 0 0</pose>
-         <collision name="collision">
-           <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy-v2.STL"/>
-            </geometry>
-         </collision>
-         <visual name="visual">
-           <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy-v2.STL"/>
-            </geometry>
-         </visual>
-         <inertial>
-            <origin xyz="0 0 0.0" rpy="0 0 0"/>
-            <mass value="2" />
-            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
-          </inertial> 
-       </link>  
-
-
-       <!-- Add the rear-left wheel -->     
-       <link name="rear_left_wheel">
-         <pose>-0.45 0.68 -0.195 0 0 0</pose>
-         <collision name="collision">
-           <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy-v2.STL"/>
-            </geometry>
-         </collision>
-         <visual name="visual">
-           <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy-v2.STL"/>
-            </geometry>
-         </visual>
-         <inertial>
-            <origin xyz="0 0 0.0" rpy="0 0 0"/>
-            <mass value="2" />
-            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
-          </inertial> 
-       </link>  
-
-
-       <!-- Add the rear-right wheel -->     
-       <link name="rear_right_wheel">
-         <pose>-0.45 -0.68 -0.195 0 0 0</pose>
-         <collision name="collision">
-           <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy-v2.STL"/>
-            </geometry>
-         </collision>
-         <visual name="visual">
-           <geometry>
-                <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy-v2.STL"/>
-            </geometry>
-         </visual>
-         <inertial>
-            <origin xyz="0 0 0.0" rpy="0 0 0"/>
-            <mass value="2" />
-            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
-          </inertial> 
-       </link>  
-
-
-
-        <joint name="front_left_wheel_joint" type="continuous">
-            <parent link="chassis"/>
-            <child link="front_left_wheel"/>
-            <origin xyz="0.45 0.68 -0.195" rpy="0 0 0"/>
-            <axis xyz="0 1 0"/>
-        </joint>   
-
-        <joint name="front_right_wheel_joint" type="continuous">
-            <parent link="chassis"/>
-            <child link="front_right_wheel"/>
-            <origin xyz="0.45 -0.68 -0.195" rpy="0 0 0"/>
-            <axis xyz="0 1 0"/>
-        </joint>       
-
-
-        <joint name="rear_left_wheel_joint" type="continuous">
-            <parent link="chassis"/>
-            <child link="rear_left_wheel"/>
-            <origin xyz="-0.45 0.68 -0.195" rpy="0 0 0"/>
-            <axis xyz="0 1 0"/>
-        </joint>   
-
-        <joint name="rear_right_wheel_joint" type="continuous">
-            <parent link="chassis"/>
-            <child link="rear_right_wheel"/>
-            <origin xyz="-0.45 -0.68 -0.195" rpy="0 0 0"/>
-            <axis xyz="0 1 0"/>
-        </joint>  
-
-
-
-
-    <!-- Controls the skid steer robot -->
-    <gazebo>
-        <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-            <updateRate>100.0</updateRate>
-            <robotNamespace>/</robotNamespace>
-            <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>
-            <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
-            <leftRearJoint>rear_left_wheel_joint</leftRearJoint>
-            <rightRearJoint>rear_right_wheel_joint</rightRearJoint>
-            <wheelSeparation>1.37</wheelSeparation>
-            <wheelDiameter>0.215</wheelDiameter>
-            <robotBaseFrame>base_link</robotBaseFrame>
-            <torque>20</torque>
-            <topicName>cmd_vel</topicName>
-            <broadcastTF>false</broadcastTF>
-        </plugin>
-
-        <plugin name='skid_steer_drive' filename='libgazebo_ros_diff_drive.so'>
-            <ros>
-            <!-- Set namespace -->
-            <namespace>/</namespace>
-
-            <!-- Remap default topics -->
-            <!-- <remapping>cmd_vel:=cmd_demo</remapping>
-            <remapping>odom:=odom_demo</remapping> -->
-            </ros>
-
-            <!-- Update rate -->
-            <update_rate>500</update_rate>
-
-            <!-- Number of wheel pairs -->
-            <num_wheel_pairs>2</num_wheel_pairs>
-
-            <!-- wheels0 -->
-            <left_joint>front_left_wheel_joint</left_joint>
-            <right_joint>front_right_wheel_joint</right_joint>
-
-            <!-- wheels1-->
-            <left_joint>rear_left_wheel_joint</left_joint>
-            <right_joint>rear_right_wheel_joint</right_joint>
-
-            <!-- kinematics -->
-            <wheel_separation>1.37</wheel_separation>
-            <wheel_separation>1.37</wheel_separation>
-
-            <wheel_diameter>0.25</wheel_diameter>
-            <wheel_diameter>0.25</wheel_diameter>
-
-            <!-- limits -->
-            <max_wheel_torque>20</max_wheel_torque>
-            <max_wheel_acceleration>1.0</max_wheel_acceleration>
-
-            <!-- output -->
-            <publish_odom>true</publish_odom>
-            <publish_odom_tf>true</publish_odom_tf>
-            <publish_wheel_tf>true</publish_wheel_tf>
-
-            <odometry_frame>odom</odometry_frame>
-            <robot_base_frame>base_link</robot_base_frame>
-
-      </plugin>
-
-    </gazebo>
+    <!-- downward_camera -->
+    <xacro:downward_camera parent="chassis">
+        <origin xyz="0.0 0.0 0.1" rpy="0 1.5708 0"/>
+    </xacro:downward_camera>
 
 </robot>

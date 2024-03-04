@@ -104,7 +104,8 @@ def generate_launch_description():
     start_robot_state_pub =  Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        parameters=[params])
+        parameters=[params]
+    )
     
     
     spawn_entity = Node(
@@ -112,11 +113,22 @@ def generate_launch_description():
         executable='spawn_entity.py',
         output='screen',
         arguments=['-topic', 'robot_description',
-                   '-entity', pkg_prefix]
+                   '-entity', pkg_prefix,
+                   '-x', '7.03', '-y', '-1.40', '-z', '0.0',
+                   '-Y', '-3.04']
+    )
+
+    start_rviz = Node(
+        package='rviz2',
+        namespace='',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', [os.path.join(pkg_gazebo_dir, 'config', 'config.rviz')]]
     )
 
     return LaunchDescription([
         start_gazebo,
         start_robot_state_pub,
         spawn_entity,
+        start_rviz
     ])
