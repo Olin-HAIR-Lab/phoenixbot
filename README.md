@@ -2,7 +2,7 @@
 
 The Phoenixbot is [Olin College's](https://www.olin.edu/) first sustainable agricultural robot platform, developed my students and faculty. The robot platform is addressing the need for sustainable, ecological weed management strategies for healthier and more sustainable agriculture. It is designed on the [farm-ng Amiga micro tractor platform](https://farm-ng.com/products/la-maquina-amiga).
 
-![demo](media//phoenixbot_demo.gif)
+<img src="media/phoenixbot_demo.gif" width="1000">
 
 <br>
 
