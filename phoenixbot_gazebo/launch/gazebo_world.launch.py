@@ -34,7 +34,7 @@ def generate_launch_description():
     pkg_prefix = 'phoenixbot'
     pkg_gazebo = pkg_prefix + '_gazebo'
     pkg_description = pkg_prefix + '_description'
-    robot_urdf_file = 'urdf/phoenixbot.xacro'
+    robot_urdf_file = 'urdf/groundbot/phoenixbot.xacro'
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='True')
 
@@ -76,30 +76,9 @@ def generate_launch_description():
             '-s', 'libgazebo_ros_factory.so'],
             output='screen')
 
-    #GAZEBO_MODEL_PATH has to be correctly set for Gazebo to be able to find the model
-    #spawn_entity = Node(package='gazebo_ros', node_executable='spawn_entity.py',
-    #                    arguments=['-entity', 'demo', 'x', 'y', 'z'],
-    #                    output='screen')
-    # spawn_entity = Node(package='warehouse_robot_spawner_pkg', executable='spawn_demo',
-    #                     arguments=['Agribot', 'demo', '-1.5', '-0.0', '0.0'],
-    #                     output='screen')
-    
-    
-    # Configure the node
-    # start_robot_state_pub = Node(
-    #     package='robot_state_publisher',
-    #     executable='robot_state_publisher',
-    #     output='screen',
-    #     parameters=[{'robot_description': robot_description_raw,
-    #     'use_sim_time': True}] # add other parameters here if required
-    # ) 
-
-
 
     robot_description_config = ParameterValue(Command(['xacro ', urdf_model_path, ' sim_mode:=', use_sim_time]), value_type=str)
     params = {'robot_description': robot_description_config, 'use_sim_time': use_sim_time}
-
-    # print(params)
 
     start_robot_state_pub =  Node(
         package='robot_state_publisher',
@@ -123,7 +102,7 @@ def generate_launch_description():
         namespace='',
         executable='rviz2',
         name='rviz2',
-        arguments=['-d', [os.path.join(pkg_gazebo_dir, 'config', 'config.rviz')]]
+        arguments=['-d', [os.path.join(pkg_gazebo_dir, 'config', 'rviz/config.rviz')]]
     )
 
     return LaunchDescription([

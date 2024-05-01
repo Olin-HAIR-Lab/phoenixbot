@@ -9,8 +9,8 @@
     <xacro:include filename="gazebo_control.xacro"/> 
 
     <!-- Includes -->
-    <xacro:include filename="$(find phoenixbot_description)/urdf/ydlidar.xacro" />
-    <xacro:include filename="$(find phoenixbot_description)/urdf/zed2_camera.xacro" />
+    <xacro:include filename="$(find phoenixbot_description)/urdf/groundbot/ydlidar.xacro" />
+    <xacro:include filename="$(find phoenixbot_description)/urdf/groundbot/zed2_camera.xacro" />
     <!-- <xacro:include filename="$(find phoenixbot_description)/urdf/gps.xacro" /> -->
     <xacro:include filename="robot_cameras.xacro"/>
 
