@@ -45,7 +45,7 @@ def generate_launch_description():
     urdf_model_path = os.path.join(pkg_path, robot_urdf_file)
 
 
-    world_file_name = 'farm.world'
+    world_file_name = 'farm_triple_row.world'
 
     pkg_gazebo_dir = get_package_share_directory(pkg_gazebo)
     pkg_gazebo_install_dir = get_package_prefix(pkg_gazebo)
