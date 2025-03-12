@@ -1,0 +1,59 @@
+{
+    "name": "PhoenixBot ROS Development Container",
+    "privileged": true,
+    "remoteUser": "${localEnv:USER}",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "USERNAME": "${localEnv:USER}",
+            "DOCKER_REPO": "osrf/ros",
+            "ROS_DISTRO": "humble",
+            "IMAGE_SUFFIX": "-desktop-full"
+        }
+    },
+    "workspaceFolder": "/home/ros2_ws/src/phoenixbot",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/ros2_ws/src/phoenixbot,type=bind",
+    "customizations": {
+        "vscode": {
+            "extensions":[
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-themes",
+                "twxs.cmake",
+                "donjayamanne.python-extension-pack",
+                "eamodio.gitlens",
+                "ms-iot.vscode-ros"
+            ]
+        }
+    },
+    "containerEnv": {
+        "DISPLAY": "unix:0",
+        "ROS_LOCALHOST_ONLY": "1",
+        "ROS_DOMAIN_ID": "42"
+    },
+    "runArgs": [
+        "--net=host",
+        "-e", "DISPLAY=${env:DISPLAY}",
+        "--gpus", "all"
+    ],
+    "mounts": [
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/dev/dri,target=/dev/dri,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind"
+
+        //! Uncomment the following lines corresponding to which PhoenixBot repositories you currently have on your machine
+
+        //* PhoenixBot Navigation
+        // ,"source=${localWorkspaceFolder}/../phoenixbot_navigation,target=/home/ros2_ws/src/phoenixbot_navigation,type=bind"
+
+        //* PhoenixBot Weeding
+        // ,"source=${localWorkspaceFolder}/../phoenixbot_weeding,target=/home/ros2_ws/src/phoenixbot_weeding,type=bind"
+
+        //* PhoenixBot Weed Detection
+        // ,"source=${localWorkspaceFolder}/../phoenixbot_weed_detection,target=/home/ros2_ws/src/phoenixbot_weed_detection,type=bind"
+
+        //* PhoenixBot GPS
+        // ,"source=${localWorkspaceFolder}/../phoenixbot_gps,target=/home/ros2_ws/src/phoenixbot_gps,type=bind"
+    ],
+    "initializeCommand": "sh ./.devcontainer/initialize.sh",
+    "postCreateCommand": "sh ./.devcontainer/postCreate.sh"
+}
