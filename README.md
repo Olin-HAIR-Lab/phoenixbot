@@ -16,6 +16,8 @@ The Phoenixbot is [Olin College's](https://www.olin.edu/) first sustainable agri
 
 ## Installation
 
+The standard installation for PhoenixBot packages is local, instructions for which are found in [the following section](#install-locally). However, a simpler install method is the `devcontainer`. If you would like to run PhoenixBot code in the devcontainer, skip down to [ROS Development Container](#ros-development-container).
+
 ### Install Locally
 
 This system was tested on Ubuntu 22.04 LTS and ROS2 Humble.
@@ -94,7 +96,7 @@ You may want to modify the files for your setup:
 
 This devcontainer by default only includes the PhoenixBot repository. However, by uncommenting lines in the `"mounts"` section of [devcontainer.json](.devcontainer/devcontainer.json), you can include additional PhoenixBot packages for development.
 
-When including additional packages in the devcontainer, it expects a specific file-structure on the host machine. Other packages, such as `phoenixbot_navigation` or `phoenixbot_weeding` should sit in the same parent folder as `phoenixbot`, as shown:
+When including additional packages in the devcontainer, it expects a specific file-structure on the host machine. If you still need to clone/organize these packages, follow the [instructions here](#1-create-your-ros2-workspace-and-clone-the-repository). Other packages, such as `phoenixbot_navigation` or `phoenixbot_weeding` should sit in the same parent folder as `phoenixbot`, as shown:
 
 ```
 ros2_ws
